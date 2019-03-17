@@ -13,9 +13,11 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ListingComponent } from './listing/listing.component';
 import { AddListingComponent } from './add-listing/add-listing.component';
 import { EditListingComponent } from './edit-listing/edit-listing.component';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 import { FirebaseService } from './services/firebase.service';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @NgModule({
   declarations: [
@@ -31,10 +33,11 @@ import { AngularFireDatabase } from 'angularfire2/database';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    FlashMessagesModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule
   ],
-  providers: [FirebaseService, AngularFireDatabase],
+  providers: [FirebaseService, AngularFireDatabase, FlashMessagesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

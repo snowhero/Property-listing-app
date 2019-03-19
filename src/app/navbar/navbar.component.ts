@@ -15,9 +15,12 @@ export class NavbarComponent implements OnInit {
 
   user: Observable<firebase.User>;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, public flashMessage: FlashMessagesService) {
+  constructor(private afAuth: AngularFireAuth,
+              private router: Router, 
+              public flashMessage: FlashMessagesService) 
+    {
     this.user = afAuth.authState;
-   }
+    }
 
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());

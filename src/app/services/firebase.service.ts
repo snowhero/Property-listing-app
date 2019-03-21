@@ -8,8 +8,8 @@ import { Listing } from '../interfaces/listing';
 })
 export class FirebaseService {
 
-  listings: AngularFireList<any[]>;
-  listing: AngularFireObject<any>;
+  listings: AngularFireList<Listing[]>;
+  listing: AngularFireObject<Listing>;
 
   constructor(private db: AngularFireDatabase) { }
   

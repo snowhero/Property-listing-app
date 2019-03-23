@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 import { FirebaseService } from '../services/firebase.service';
 
@@ -18,27 +18,18 @@ export class ListingComponent implements OnInit {
   listing: any;
   imageUrl: any;
 
-  itemsRef: AngularFireList<any>;
-  items: Observable<any[]>;
-
   constructor(private firebaseService: FirebaseService, 
               private router: Router, 
               private route: ActivatedRoute,
-              private db: AngularFireDatabase) { 
-                db.list(`/listings`).snapshotChanges().pipe( map(actions => {
-                  return actions.map(action => {
-                      const $key = action.payload.key;
-                      const data = { $key, ...action.payload.val() };
-                      return data;
-                  });
-              })).subscribe(items => console.log(items));
-              }
+              private db: AngularFireDatabase) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];    
-    this.firebaseService.getListingDetails(this.id).valueChanges().subscribe(listing => {
-      console.log(listing);
+    this.firebaseService.getListingDetails(this.id).snapshotChanges().pipe( map(actions => {
+      return ({ key: actions.key, ...actions.payload.val() });
+    })).subscribe( listing => {
       this.listing = listing;
+      console.log(this.listing);
     })
   }
 

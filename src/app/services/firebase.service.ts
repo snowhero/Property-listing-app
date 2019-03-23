@@ -3,6 +3,8 @@ import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angular
 
 import { Listing } from '../interfaces/listing';
 
+import * as firebase from 'firebase/app';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,15 +12,32 @@ export class FirebaseService {
 
   listings: AngularFireList<Listing[]>;
   listing: AngularFireObject<Listing>;
+  folder: any;
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private db: AngularFireDatabase) { 
+    this.folder = 'listingImages';
+  }
   
   getListingDetails(id: any) {
     this.listing = this.db.object('/listings/'+id) as AngularFireObject<Listing>;
     return this.listing;
   }
+
   getListings() {
     this.listings = this.db.list('/listings') as AngularFireList<Listing[]>;
     return this.listings;
+  }
+
+  addListing(listing: any) {
+    let storageRef = firebase.storage().ref();
+    for(let selectedFile of [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
+      // let path = `${this.folder}/${selectedFile.name}`;
+      let iRef = storageRef.child(`${this.folder}/${selectedFile.name}`);
+      iRef.put(selectedFile).then((snapshot) => {
+        listing.image = selectedFile.name;
+        listing.path = `${this.folder}/${selectedFile.name}`;
+        return this.listings.push(listing);
+      });
+    }
   }
 }

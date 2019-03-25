@@ -7,6 +7,8 @@ import { FirebaseService } from '../services/firebase.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import * as firebase from 'firebase/app';
+
 @Component({
   selector: 'app-listing',
   templateUrl: './listing.component.html',
@@ -29,8 +31,16 @@ export class ListingComponent implements OnInit {
       return ({ key: actions.key, ...actions.payload.val() });
     })).subscribe( listing => {
       this.listing = listing;
-      console.log(this.listing);
-    })
+      console.log(listing);
+      
+      let storageRef = firebase.storage().ref();
+      let spaceRef = storageRef.child(listing.path);
+      storageRef.child(listing.path).getDownloadURL().then((url) => {
+        this.imageUrl = url;
+      }).catch((error) => {
+        console.log(error);
+      });
+    });
   }
 
 }

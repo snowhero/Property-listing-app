@@ -27,9 +27,17 @@ export class AddListingComponent implements OnInit {
       owner: this.owner,
       bedrooms: this.bedrooms,
       price: this.price,
-      type: this.type
+      type: this.type,
+      image: this.image
     }    
     console.log(listing);
+    if(listing.title == undefined) { alert('Please add a title'); return; };
+    if(listing.city == undefined) { alert('Please add a city'); return; };
+    if(listing.owner == undefined) { alert('Please add a owner'); return; };
+    if(listing.bedrooms == undefined) { alert('Please add a bedroom'); return; };
+    if(listing.type == undefined) { alert('Please add a type'); return; };
+    if(listing.image == undefined) { alert('Please attach an image'); return; };
+    if(listing.price == undefined) { alert('Please add a price'); return; };
     
     this.firebaseService.addListing(listing);
     this.router.navigate(['/listings']);

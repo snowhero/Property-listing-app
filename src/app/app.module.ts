@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,7 +36,8 @@ import { FlashMessagesService } from 'angular2-flash-messages';
     FormsModule,
     FlashMessagesModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   providers: [FirebaseService, AngularFireDatabase, FlashMessagesService],
   bootstrap: [AppComponent]

@@ -15,7 +15,7 @@ export class FirebaseService {
   folder: any;
 
   constructor(private db: AngularFireDatabase) { 
-    this.folder = 'listingImages';
+    this.folder = 'listingimages';
   }
   
   getListingDetails(id: any) {
@@ -31,11 +31,12 @@ export class FirebaseService {
   addListing(listing: any) {
     let storageRef = firebase.storage().ref();
     for(let selectedFile of [(<HTMLInputElement>document.getElementById('image')).files[0]]) {
-      // let path = `${this.folder}/${selectedFile.name}`;
-      let iRef = storageRef.child(`${this.folder}/${selectedFile.name}`);
+      let path = `/${this.folder}/${selectedFile.name}`;
+      console.log(path);
+      let iRef = storageRef.child(path);
       iRef.put(selectedFile).then((snapshot) => {
         listing.image = selectedFile.name;
-        listing.path = `${this.folder}/${selectedFile.name}`;
+        listing.path = path;
         return this.listings.push(listing);
       });
     }

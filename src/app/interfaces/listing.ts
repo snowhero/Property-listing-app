@@ -5,5 +5,7 @@ export interface Listing {
     image?: string;
     city?: string;
     owner?: string;
-    bedroom?: string;
+    bedrooms?: string;
+    price?: string;
+    path?: string;
 }

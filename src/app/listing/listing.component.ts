@@ -35,7 +35,7 @@ export class ListingComponent implements OnInit {
       
       let storageRef = firebase.storage().ref();
       let spaceRef = storageRef.child(listing.path);
-      storageRef.child(listing.path).getDownloadURL().then((url) => {
+      spaceRef.getDownloadURL().then((url) => {
         this.imageUrl = url;
       }).catch((error) => {
         console.log(error);

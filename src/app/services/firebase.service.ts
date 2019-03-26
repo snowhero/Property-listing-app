@@ -16,15 +16,19 @@ export class FirebaseService {
 
   constructor(private db: AngularFireDatabase) { 
     this.folder = 'listingimages';
+    this.listings = this.db.list('/listings') as AngularFireList<Listing[]>;
   }
   
+  updateListing(id: any, listing: any) {
+    return this.listings.update(id, listing);
+  }
+
   getListingDetails(id: any) {
     this.listing = this.db.object('/listings/'+id) as AngularFireObject<Listing>;
     return this.listing;
   }
 
   getListings() {
-    this.listings = this.db.list('/listings') as AngularFireList<Listing[]>;
     return this.listings;
   }
 

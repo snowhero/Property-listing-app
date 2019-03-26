@@ -9,6 +9,7 @@ import { EditListingComponent } from './edit-listing/edit-listing.component';
 
 const routes = [
   { path: '' , component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'listings', component: ListingsComponent },
   { path: 'listing/:id', component: ListingComponent },
   { path: 'add-listing', component: AddListingComponent },

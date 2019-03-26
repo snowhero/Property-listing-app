@@ -19,6 +19,10 @@ export class FirebaseService {
     this.listings = this.db.list('/listings') as AngularFireList<Listing[]>;
   }
   
+  deleteListing(id: any) {
+    return this.listings.remove(id);
+  }
+
   updateListing(id: any, listing: any) {
     return this.listings.update(id, listing);
   }

@@ -25,11 +25,13 @@ export class NavbarComponent implements OnInit {
   login() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     this.router.navigateByUrl('/home');
+    this.navHome();
   }
 
   logout() {
-    this.afAuth.auth.signOut();
     this.router.navigateByUrl('/home');
+    this.navHome();
+    this.afAuth.auth.signOut();
     this.flashMessage.show('You are logged out', 
     {cssClass: 'alert-success', timeout: 3000});
   }
@@ -41,8 +43,13 @@ export class NavbarComponent implements OnInit {
       return false;
     }
   }
+
+  navHome() { 
+    this.router.navigateByUrl('/home');
+  }
   
   ngOnInit() {
+    this.navHome();
   }
 
 }

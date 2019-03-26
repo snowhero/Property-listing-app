@@ -25,6 +25,11 @@ export class ListingComponent implements OnInit {
               private route: ActivatedRoute,
               private db: AngularFireDatabase) { }
 
+  onDeleteClick() {
+    this.firebaseService.deleteListing(this.id);
+    this.router.navigateByUrl('/listings');
+  }
+
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];    
     this.firebaseService.getListingDetails(this.id).snapshotChanges().pipe( map(actions => {
